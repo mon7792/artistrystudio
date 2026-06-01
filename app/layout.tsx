@@ -22,7 +22,7 @@ const tangerine = Tangerine({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aartistrystudio.com'),
+  metadataBase: new URL('https://artistrystudio.netlify.app'),
   title: "Aartistry Studio — Preserving Your Moments in Resin",
   description:
     "Resin art, flower preservation & digital art by Akshada. Commission personalised keepsakes, ocean wall art, and custom pieces.",

@@ -1,174 +1,179 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
-import { WA } from '../lib/constants';
+import { useState, useEffect } from "react";
+import { pillars, type Piece } from "../lib/gallery";
+import { useReveal } from "../hooks/useReveal";
+import { waLink } from "../lib/constants";
 
-interface GalleryItem {
-  src: string;
-  alt: string;
-  caption: string;
+function Lightbox({ piece, onClose }: { piece: Piece | null; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    if (piece) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", onKey);
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [piece, onClose]);
+
+  if (!piece) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] bg-[#FBF7EE]/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10"
+      onClick={onClose}
+    >
+      <button
+        aria-label="Close"
+        onClick={onClose}
+        className="absolute top-6 right-6 md:top-10 md:right-10 w-10 h-10 flex items-center justify-center text-[#1C1A17] hover:text-[#C9A227] transition-colors"
+      >
+        <span className="font-display text-3xl leading-none">×</span>
+      </button>
+
+      <div
+        className="relative max-w-5xl w-full max-h-[90vh] grid md:grid-cols-12 gap-6 md:gap-10 items-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="md:col-span-8 bg-[#F4ECDB] overflow-hidden">
+          <img
+            src={piece.img}
+            alt={piece.title}
+            className="w-full h-full max-h-[80vh] object-cover"
+          />
+        </div>
+        <div className="md:col-span-4 space-y-6">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-[#C9A227]">
+            {piece.category}
+          </p>
+          <h3 className="font-display text-3xl md:text-4xl font-light text-[#1C1A17] leading-tight">
+            {piece.title}
+          </h3>
+          <div className="gold-rule" />
+          <p className="text-sm text-[#4A453E] font-light leading-relaxed">
+            A one-of-one piece from the studio. Inquire to commission something
+            in the same spirit — sized, coloured, and detailed for your story.
+          </p>
+          <a
+            href={waLink(`Hi Akshada! I love "${piece.title}". Can we discuss something similar?`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gold-shimmer inline-block bg-[#1C1A17] text-[#FBF7EE] px-6 py-3 text-xs tracking-[0.3em] uppercase hover:bg-[#C9A227] transition-colors duration-500"
+          >
+            Commission similar
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-interface Pillar {
-  num: string;
-  title: string;
-  desc: string;
-  items: GalleryItem[];
-}
+function Pillar({
+  pillar,
+  idx,
+  onOpen,
+}: {
+  pillar: (typeof pillars)[number];
+  idx: number;
+  onOpen: (p: Piece) => void;
+}) {
+  const ref = useReveal();
+  const spans = [
+    "md:col-span-7",
+    "md:col-span-5 md:mt-16",
+    "md:col-span-5",
+    "md:col-span-7 md:mt-12",
+  ];
 
-const pillars: Pillar[] = [
-  {
-    num: '01',
-    title: 'Abstract & Ocean Wall Art',
-    desc: 'Fine-art resin canvases with fluid rivers of colour — made for spaces that deserve a story.',
-    items: [
-      { src: '/products/abstract-1.png', alt: 'Teal river abstract resin canvas with fluid colour', caption: 'Teal River · Abstract Resin Canvas' },
-      { src: '/products/abstract-2.jpg', alt: 'Ocean series abstract resin artwork', caption: 'Ocean Series · Abstract Resin' },
-      { src: '/products/abstract-3.jpg', alt: 'Deep blue resin canvas wall art', caption: 'Deep Blue · Resin Canvas' },
-    ],
-  },
-  {
-    num: '02',
-    title: 'Keepsakes & Flower Preservation',
-    desc: 'Wedding platters, pressed-flower pieces, and occasion gifts — made to outlast the moment.',
-    items: [
-      { src: '/products/keepsake-1.png', alt: 'Personalised wedding platter with gold calligraphy and preserved flowers', caption: 'Nikita ❤ Pranav · Wedding Platter' },
-      { src: '/products/keepsake-2.jpg', alt: 'Pressed flowers preserved in resin', caption: 'Floral Preserve · Pressed Flowers in Resin' },
-      { src: '/products/keepsake-3.jpg', alt: 'Anniversary flower preservation gift', caption: 'Anniversary Gift · Flower Preservation' },
-    ],
-  },
-  {
-    num: '03',
-    title: 'Custom & Themed Commissions',
-    desc: 'Embedded objects, fan art, luxury themes — no brief too bold.',
-    items: [
-      { src: '/products/custom-1.png', alt: 'Porsche themed custom resin art commission', caption: 'Porsche Edition · Custom Resin Piece' },
-      { src: '/products/custom-2.jpg', alt: 'Custom fan series themed resin commission', caption: 'Fan Series · Custom Themed Resin' },
-      { src: '/products/custom-3.jpg', alt: 'Luxury themed bespoke resin commission', caption: 'Luxury Theme · Bespoke Commission' },
-    ],
-  },
-];
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="fade-up py-16 md:py-24 border-t border-[#1C1A17]/10 first:border-t-0"
+    >
+      <div className="grid md:grid-cols-12 gap-6 md:gap-12 items-end mb-10 md:mb-16">
+        <div className="md:col-span-7">
+          <p className="text-[11px] tracking-[0.4em] uppercase text-[#C9A227] mb-4">
+            {String(idx + 1).padStart(2, "0")} · Series
+          </p>
+          <h3 className="font-display text-3xl md:text-5xl font-light text-[#1C1A17] leading-tight">
+            {pillar.label}
+          </h3>
+        </div>
+        <p className="md:col-span-5 text-[15px] md:text-base text-[#4A453E] leading-relaxed font-light">
+          {pillar.blurb}
+        </p>
+      </div>
 
-interface LightboxState {
-  src: string;
-  alt: string;
-  caption: string;
+      <div className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-8">
+        {pillar.pieces.map((p, i) => (
+          <button
+            key={p.id}
+            onClick={() => onOpen(p)}
+            className={`gallery-card group relative overflow-hidden bg-[#F4ECDB] block text-left ${spans[i % 4]}`}
+          >
+            <div className={`relative ${p.aspect} w-full overflow-hidden`}>
+              <img
+                src={p.img}
+                alt={p.title}
+                loading="lazy"
+                className="gallery-img absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="gallery-overlay absolute inset-0 bg-[#082A57]/30 flex items-end p-4 md:p-6">
+                <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#FBF7EE] border-b border-[#E6C766] pb-1">
+                  View piece
+                </span>
+              </div>
+            </div>
+            <div className="pt-4 flex items-baseline justify-between gap-4">
+              <h4 className="font-display text-lg md:text-xl text-[#1C1A17]">
+                {p.title}
+              </h4>
+              <span className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-[#4A453E] text-right">
+                {p.category}
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function GallerySection() {
-  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  const openLightbox = useCallback((item: LightboxState) => {
-    setLightbox(item);
-    setLightboxOpen(true);
-    document.body.style.overflow = 'hidden';
-  }, []);
-
-  const closeLightbox = useCallback(() => {
-    setLightboxOpen(false);
-    document.body.style.overflow = '';
-  }, []);
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && lightboxOpen) closeLightbox();
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [lightboxOpen, closeLightbox]);
-
-  // Scroll reveal
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
-    );
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  const [active, setActive] = useState<Piece | null>(null);
 
   return (
-    <>
-      <section id="work" className="gallery" aria-label="Work gallery">
-        <div className="marquee" aria-hidden="true">
-          <div className="marquee__track">
-            {['Abstract Wall Art', 'Keepsakes & Preservation', 'Custom Commissions', 'Flower Preservation', 'Ocean Resin Art', 'Wedding Keepsakes'].map((t, i) => (
-              <span key={i}>{t}<span className="marquee-sep"> · </span></span>
-            ))}
-            {['Abstract Wall Art', 'Keepsakes & Preservation', 'Custom Commissions', 'Flower Preservation', 'Ocean Resin Art', 'Wedding Keepsakes'].map((t, i) => (
-              <span key={`b${i}`}>{t}<span className="marquee-sep"> · </span></span>
-            ))}
+    <section id="work" className="bg-[#FBF7EE] py-24 md:py-36">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="grid md:grid-cols-12 gap-8 mb-16 md:mb-24">
+          <div className="md:col-span-2">
+            <span className="text-[11px] tracking-[0.4em] uppercase text-[#4A453E]">
+              Selected
+            </span>
           </div>
+          <h2 className="md:col-span-7 font-display text-4xl md:text-6xl font-light text-[#1C1A17] leading-[1.1]">
+            Three quiet ways
+            <br />
+            of{" "}
+            <em className="text-[#C9A227] not-italic font-script text-6xl md:text-7xl">
+              keeping
+            </em>{" "}
+            a moment.
+          </h2>
+          <p className="md:col-span-3 text-sm text-[#4A453E] self-end font-light">
+            Each piece is one-of-one. Tap any work to inquire — pricing is
+            shared over WhatsApp once we understand your story.
+          </p>
         </div>
 
-        {pillars.map((pillar) => (
-          <div key={pillar.num} className="gallery__pillar reveal">
-            <div className="pillar__header">
-              <span className="pillar__label">{pillar.num}</span>
-              <h2 className="pillar__title">{pillar.title}</h2>
-              <p className="pillar__desc">{pillar.desc}</p>
-            </div>
-            <div className="pillar__grid">
-              {pillar.items.map((item) => (
-                <button
-                  key={item.src}
-                  className="gallery-item"
-                  onClick={() => openLightbox(item)}
-                  aria-label={`View: ${item.caption}`}
-                >
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    loading="lazy"
-                  />
-                  <div className="gallery-item__overlay" aria-hidden="true">
-                    <span>View</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <a
-              href={WA}
-              className="pillar__cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Commission something like this →
-            </a>
-          </div>
+        {pillars.map((p, i) => (
+          <Pillar key={p.id} pillar={p} idx={i} onOpen={setActive} />
         ))}
-      </section>
-
-      {/* Lightbox */}
-      <div
-        className={`lightbox${lightboxOpen ? ' open' : ''}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Image viewer"
-        onClick={(e) => { if (e.target === e.currentTarget) closeLightbox(); }}
-      >
-        <button className="lightbox__close" onClick={closeLightbox} aria-label="Close image viewer">
-          &times;
-        </button>
-        {lightbox && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={lightbox.src} alt={lightbox.alt} className="lightbox__img" />
-        )}
-        {lightbox && (
-          <p className="lightbox__caption">{lightbox.caption}</p>
-        )}
       </div>
-    </>
+
+      <Lightbox piece={active} onClose={() => setActive(null)} />
+    </section>
   );
 }
