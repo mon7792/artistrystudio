@@ -1,4 +1,4 @@
-import { CONTACT, igLink, mailLink } from "../lib/constants";
+import { CONTACT, igLink } from "../lib/constants";
 
 export default function Footer() {
   return (
@@ -23,12 +23,6 @@ export default function Footer() {
             className="hover:text-[#E6C766] transition-colors"
           >
             Instagram
-          </a>
-          <a
-            href={mailLink}
-            className="hover:text-[#E6C766] transition-colors"
-          >
-            Email
           </a>
           <a
             href={`https://wa.me/${CONTACT.whatsappNumber}`}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { CONTACT, waLink, igLink, mailLink } from "../lib/constants";
+import { CONTACT, waLink, igLink } from "../lib/constants";
 import { useReveal } from "../hooks/useReveal";
 
 export default function ContactForm() {
@@ -97,12 +97,6 @@ export default function ContactForm() {
             className="text-[#FBF7EE] hover:text-[#E6C766] transition-colors border-b border-[#E6C766]/30 hover:border-[#E6C766] pb-1 tracking-[0.2em] uppercase text-xs"
           >
             Instagram · @{CONTACT.instagramHandle}
-          </a>
-          <a
-            href={mailLink}
-            className="text-[#FBF7EE] hover:text-[#E6C766] transition-colors border-b border-[#E6C766]/30 hover:border-[#E6C766] pb-1 tracking-[0.2em] uppercase text-xs"
-          >
-            {CONTACT.email}
           </a>
         </div>
       </div>

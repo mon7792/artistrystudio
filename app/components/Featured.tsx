@@ -62,7 +62,7 @@ export default function Featured() {
               href={waLink("Hi Akshada! I'd like to discuss a custom commission similar to The Porsche Project.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="gold-shimmer inline-block bg-[#1C1A17] text-[#FBF7EE] px-8 py-4 text-xs tracking-[0.3em] uppercase hover:bg-[#C9A227] transition-colors duration-500 mt-4"
+              className="gold-shimmer commission-btn inline-block bg-[#C9A227] text-[#1C1A17] px-8 py-4 text-xs tracking-[0.3em] uppercase border border-[#C9A227] hover:bg-[#1C1A17] hover:border-[#1C1A17] transition-colors duration-500 mt-4"
             >
               Commission a custom piece
             </a>

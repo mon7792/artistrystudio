@@ -95,6 +95,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   transition: transform 0.9s ease;
 }
 .gold-shimmer:hover::before { transform: translateX(120%); }
+.commission-btn:hover { color: #FBF7EE; }
 
 /* ── Gold rule ──────────────────────────────────────────────── */
 .gold-rule {

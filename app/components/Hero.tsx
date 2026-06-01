@@ -62,7 +62,7 @@ export default function Hero() {
             href={waLink("Hi Akshada! I'd love to commission a piece. Could you share details?")}
             target="_blank"
             rel="noopener noreferrer"
-            className="gold-shimmer bg-[#1C1A17] text-[#FBF7EE] px-8 py-4 text-xs tracking-[0.3em] uppercase border border-[#1C1A17] hover:bg-[#C9A227] hover:border-[#C9A227] transition-colors duration-500"
+            className="gold-shimmer commission-btn bg-[#C9A227] text-[#1C1A17] px-8 py-4 text-xs tracking-[0.3em] uppercase border border-[#C9A227] hover:bg-[#1C1A17] hover:border-[#1C1A17] transition-colors duration-500"
           >
             Commission a piece
           </a>
