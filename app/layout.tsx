@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Aartistry Studio",
     description: "Preserving your moments in resin.",
     type: "website",
-    images: [{ url: '/logo.png', width: 120, height: 40, alt: 'Aartistry Studio' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Aartistry Studio' }],
   },
 };
 
