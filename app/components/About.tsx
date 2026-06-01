@@ -15,7 +15,7 @@ export default function About() {
         className="fade-up max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-10 md:gap-20 items-center"
       >
         <div className="md:col-span-5 order-2 md:order-1 relative">
-          <div className="aspect-[5/7] overflow-hidden bg-[#F4ECDB]">
+          <div className="aspect-[5/7] overflow-hidden rounded-2xl bg-[#F4ECDB]">
             <img
               src="/studio-portrait.webp"
               alt="Akshada in her studio"

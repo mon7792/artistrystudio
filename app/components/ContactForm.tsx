@@ -59,7 +59,7 @@ export default function ContactForm() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Akshada Patil"
+              placeholder="Akshada Thombre"
               className="mt-2 w-full bg-transparent border-b border-[#FBF7EE]/30 focus:border-[#E6C766] outline-none py-2 text-[#FBF7EE] placeholder:text-[#FBF7EE]/30 font-light transition-colors"
             />
           </label>

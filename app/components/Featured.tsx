@@ -26,7 +26,7 @@ export default function Featured() {
 
         <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-center">
           <div className="md:col-span-6 relative">
-            <div className="aspect-[3/4] overflow-hidden bg-[#FBF7EE]">
+            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-[#FBF7EE]">
               <img
                 src="/products/porsche-project.webp"
                 alt="The Porsche Project — custom resin commission"

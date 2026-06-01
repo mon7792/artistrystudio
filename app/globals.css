@@ -27,7 +27,7 @@ body {
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; border-radius: 1rem; }
 a { color: inherit; text-decoration: none; cursor: pointer; }
 button { cursor: pointer; border: none; background: none; font: inherit; }
 

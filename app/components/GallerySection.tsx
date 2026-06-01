@@ -37,7 +37,7 @@ function Lightbox({ piece, onClose }: { piece: Piece | null; onClose: () => void
         className="relative max-w-5xl w-full max-h-[90vh] grid md:grid-cols-12 gap-6 md:gap-10 items-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="md:col-span-8 bg-[#F4ECDB] overflow-hidden">
+        <div className="md:col-span-8 bg-[#F4ECDB] overflow-hidden rounded-2xl">
           <img
             src={piece.img}
             alt={piece.title}
@@ -111,9 +111,9 @@ function Pillar({
           <button
             key={p.id}
             onClick={() => onOpen(p)}
-            className={`gallery-card group relative overflow-hidden bg-[#F4ECDB] block text-left ${spans[i % 4]}`}
+            className={`gallery-card group relative overflow-hidden rounded-2xl bg-[#F4ECDB] block text-left ${spans[i % 4]}`}
           >
-            <div className={`relative ${p.aspect} w-full overflow-hidden`}>
+            <div className={`relative ${p.aspect} w-full overflow-hidden rounded-2xl`}>
               <img
                 src={p.img}
                 alt={p.title}
