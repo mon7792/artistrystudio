@@ -90,7 +90,7 @@ export const pillars: Pillar[] = [
     id: "custom",
     label: "Custom & Themed Commissions",
     blurb:
-      "Bespoke pieces built around an object, an obsession, a story. The Porsche, the cricket bat, the heirloom.",
+      "Bespoke pieces built around an object, an obsession, a story.",
     pieces: [
       {
         id: "cust-1",
@@ -117,7 +117,7 @@ export const pillars: Pillar[] = [
         id: "cust-4",
         title: "Sunflower Bloom",
         category: "Framed digital art · warm-toned floral",
-        img: "/products/custom-4.webp",
+        img: "/products/custom-4-r.webp",
         aspect: "aspect-[4/3]",
       },
     ],

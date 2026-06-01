@@ -130,11 +130,11 @@ function Pillar({
                 </span>
               </div>
             </div>
-            <div className="pt-4 flex items-baseline justify-between gap-4">
+            <div className="pt-4 flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-4">
               <h4 className="font-display text-lg md:text-xl text-[#1C1A17]">
                 {p.title}
               </h4>
-              <span className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-[#4A453E] text-right">
+              <span className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-[#4A453E] md:text-right">
                 {p.category}
               </span>
             </div>
