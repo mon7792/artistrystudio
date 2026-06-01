@@ -28,9 +28,13 @@ function Lightbox({ piece, onClose }: { piece: Piece | null; onClose: () => void
       <button
         aria-label="Close"
         onClick={onClose}
-        className="absolute top-6 right-6 md:top-10 md:right-10 w-10 h-10 flex items-center justify-center text-[#1C1A17] hover:text-[#C9A227] transition-colors"
+        style={{ background: "#000000" }}
+        className="fixed top-4 right-4 z-[70] w-14 h-14 flex items-center justify-center rounded-full border-2 border-white/40 text-white shadow-2xl hover:border-[#C9A227] hover:shadow-[0_0_0_3px_#C9A227] active:scale-95 transition-all duration-200"
       >
-        <span className="font-display text-3xl leading-none">×</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+          <line x1="3" y1="3" x2="17" y2="17" />
+          <line x1="17" y1="3" x2="3" y2="17" />
+        </svg>
       </button>
 
       <div
@@ -57,12 +61,12 @@ function Lightbox({ piece, onClose }: { piece: Piece | null; onClose: () => void
             in the same spirit — sized, coloured, and detailed for your story.
           </p>
           <a
-            href={waLink(`Hi Akshada! I love "${piece.title}". Can we discuss something similar?`)}
+            href={waLink("Hi Akshada! I'd love to commission a piece. Could you share details?")}
             target="_blank"
             rel="noopener noreferrer"
-            className="gold-shimmer inline-block bg-[#1C1A17] text-[#FBF7EE] px-6 py-3 text-xs tracking-[0.3em] uppercase hover:bg-[#C9A227] transition-colors duration-500"
+            className="gold-shimmer commission-btn bg-[#C9A227] text-[#1C1A17] px-8 py-4 text-xs tracking-[0.3em] uppercase border border-[#C9A227] hover:bg-[#1C1A17] hover:border-[#1C1A17] transition-colors duration-500"
           >
-            Commission similar
+            Commission a piece
           </a>
         </div>
       </div>
